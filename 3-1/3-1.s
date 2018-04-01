@@ -9,10 +9,12 @@ str:
 .globl main
 .type main, @function
 main:
-	pushl %eax  /*программа считает (100/10+10)*10-10 */
+	  /*программа считает (100/10+10)*10-10 */
 	pushl %ebx
 	pushl %ecx
 	pushl %edx
+	pushl %ebp
+	movl %esp, %ebp
 	movl (a), %eax
 	movl (b), %ebx
 	xorl %edx, %edx
@@ -25,9 +27,10 @@ main:
 	pushl $str
 	call printf
 	add $8, %esp
+	movl %ebp, %esp
+	popl %ebp
 	popl %edx
 	popl %ecx
 	popl %ebx
-	popl %eax
 	movl $0, %eax
 	ret

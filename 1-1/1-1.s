@@ -12,6 +12,12 @@ strres:
 .type main, @function
 
 main:
+	pushl %ebx
+	pushl %ecx
+	pushl %edx
+	pushl %ebp
+	movl %esp, %ebp
+
 	subl %eax, %eax          #eax=0
 	subl %ebx, %ebx          #ebx=0
 	movl $48, %eax
@@ -44,9 +50,12 @@ main:
 	movl $res_len, %edx
 	int $0x80
 	
-	
-
+	movl %ebp, %esp
+	popl %ebp
+	popl %edx
+	popl %ecx
+	popl %ebx
 	movl $1, %eax
-	movl $0, %ebx
-	int $0x80
+	ret
+
 .size main, . - main

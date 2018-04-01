@@ -14,10 +14,12 @@ str:
 .globl main
 .type main, @function
 main:
-	pushl %eax
 	pushl %ebx
 	pushl %ecx
 	pushl %edx
+	pushl %ebp
+	movl %esp, %ebp
+	
 	pushf
 	pushf
 	popl %eax 
@@ -61,9 +63,11 @@ main:
 	call printf
 	add $20, %esp
 	popf
+	
+	movl %ebp, %esp
+	popl %ebp
 	popl %edx
 	popl %ecx
 	popl %ebx
-	popl %eax
 	xorl %eax, %eax
 	ret
